@@ -28,12 +28,23 @@ Flashing the SD Card
 1. These steps are tricky. You can follow along with the instructions shown but there are some gotchas. First, you can only use 'Manual Mode' because automatic doesn't work with a SD card that isn't already flashed with the OS. So go ahead and select **Manual Mode**. I'll go step-by-step from here.
     ![SDK Setup](./SDK-Step3.png)
     Remember to choose NVIDIA **Jetson Nano (Developer Kit Version)** and not Jetson Nano (Production version)
-1. First unpower the device by removing the DC jack
-    ![SDK Setup](./SDK-Step4.jpg)
-    Remember to choose NVIDIA **Jetson Nano (Developer Kit Version)** and not Jetson Nano (Production version)
-1. Next, attach a jumper to the J48 pin
-     ![J48](J48.gif)
-1. Insert the J40 RST pins, as pictured:
+1. First unpower the device by removing the DC jack. Remove all peripherals if you haven't done so already
+    ![SDK Setup](./SDK-Step4-unpower.jpg)
+1. Next, attach a jumper to the J48 pin. This changes the power draw from micro-usb to the barrel jack.
+    ![J48](J48.gif)
+1. Then, attach the jumper to the J40 pins as pictured (second row from the camera slot).
     ![J40](J40.gif)
-1. You can connect the micro-usb from the Nano to your x86 host machine. Also connect your wireless mouse/keyboard adapter and HDMI display for a later step.
-1. 
+    This boots the Nano is USB recovery mode. If you are not sure, you can always flip the board around to check the labels and look for **RST**(pictured below)
+    ![Labels](SDK-Step4-back.jpg)
+1. Now, connect the USB-A to micro-usb adapter from the Nano to your x86 host machine.
+    ![Micro-usb](SDK-Step4-micro.jpg)
+Also connect your mouse/keyboard wireless transceiver and HDMI display adapter.
+    ![Micro-usb](SDK-Step4-done.jpg)
+1. Finally connect the DC barrel jack and power on! A green light should appear and the end result should look something like this:
+    ![Done](SDK-Step4.jpg) // TODO: Better photo needed here
+1. The SDK Manager should automatically start flashing the SD card. Meanwhile you can remove the J40 jumper(pictured black)
+    ![Jumpers](SDK-Step4-jumpers.jpg)
+1. When the progress bar hits about 42%. A prompt should appear asking to complete the Configuration Wizard.
+    ![Step 5](SDK-Step5.png)
+    Now switch to the Nano display and a GUI should appear. Complete the configuration steps until the wizard is completed. Switch over to the x86 Host Machine once you have set your username and password and key this into the SDK Manager (and ignore the IP address)
+1. The SDK Manager will now proceed to install the additional SDK Components, so just wait until its completed.
