@@ -1,6 +1,7 @@
 #!/bin/bash
 
 $DIR = ~/.bash
+$BASHRC = ~/.testrc
 # Make directory
 if [ ! -f $DIR ]; then
     mkdir ~/.bash
@@ -8,18 +9,35 @@ if [ ! -f $DIR ]; then
 fi
 
 if [ ! -f ~/.bash_aliases ]; then
+    printf "\033[33;1mCreating .bash_aliases\033[0m\n"
     wget -P ~ https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_aliases
-    printf "\033[32;1mCreated .bash_aliases\033[0m\n"
+    if grep ".bash_aliases" $BASHRC > /dev/null; then
+        printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
+    else
+        curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/bash_aliases.sh >> $BASHRC
+    fi
+    printf "\033[32;1mComplete!\033[0m\n"
 fi
 
 if [ ! -f ~/.bash/.bash_prompt.sh ]; then
+    printf "\033[33;1mCreating .bash_aliases\033[0m\n"
     wget -P .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_prompt.sh
-    printf "\033[32;1mCreated .bash_prompt\033[0m\n"
+    if grep ".bash_prompt" $BASHRC > /dev/null; then
+        printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
+    else
+        curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/bash_prompt.sh >> $BASHRC
+    fi
+    printf "\033[32;1mComplete!\033[0m\n"
 fi
 
 if [ ! -f ~/.bash/.git-completion.sh ]; then
     wget -P .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.git-completion.bash
-    printf "\033[32;1mCreated .git-completion\033[0m\n"
+    if grep ".git-completion" $BASHRC > /dev/null; then
+        printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
+    else
+        curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/git-completion.sh >> $BASHRC
+    fi
+    printf "\033[32;1mComplete!\033[0m\n"
 fi
 
 if [ -f ~/.testrc ]; then
