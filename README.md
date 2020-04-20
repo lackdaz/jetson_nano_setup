@@ -143,3 +143,13 @@ Installing Yarn (Optional)
 Required for node package management
 - Run: curl -s https://gist.githubusercontent.com/lackdaz/15f929aeb0fee44369af1d96635769b8/raw/a23a0c604f1236cb1ae709da9930dc0922b6cdb0/install-node-yarn-arm.sh | bash /dev/stdin param1 param2
 
+Upgrading Docker to 19.03
+--
+- To upgrade docker: `curl -sSL https://get.docker.com/ | sh`
+- To install docker-compose: 
+    - `sudo apt-get update`
+    - `sudo apt-get install -y python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev`
+    - `sudo pip install docker-compose=="1.25.5"` (latest)
+- To check docker version: `sudo docker version`
+- To check compose version: `sudo docker-compose version`
+
