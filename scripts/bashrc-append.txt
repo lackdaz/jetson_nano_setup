@@ -12,8 +12,3 @@ fi
 if [ -f ~/.bash/.git-completion.bash ]; then
   source ~/.bash/.git-completion.bash
 fi
-
-# Loads scripts on terminal session login
-if [ -f ~/.bash/.startup ]; then
-  source ~/.bash/.startup
-fi
