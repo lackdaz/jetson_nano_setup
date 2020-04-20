@@ -87,6 +87,15 @@ Setting up VS Code Remote Development on the Nano
 --
 This is absolutely useful if you wish to run the nano headless and modify on the nano directly
 
+Start an elevated session
+- `sudo -s`
+
+Install the community repo key
+- `apt-key adv --keyserver keyserver.ubuntu.com - --recv-keys 0CC3FD642696BFC8`
+
+Run the installation script
+- `. <( wget -O - https://code.headmelted.com/installers/apt.sh )`
+
 Disable Lock Screen
 --
 - Run `gsettings set org.gnome.desktop.screensaver lock-enabled false
@@ -119,3 +128,7 @@ Git
 - `$ git config --global user.name "user"`
 - `$ git config --global user.email "user@gmail.com"`
 - `git config credential.helper store && git push https://github.com/owner/repo.git`
+
+A Better Git log/tree
+--
+- check https://gist.github.com/lackdaz/1843c3580612773f4d70b5ab91026d7a
