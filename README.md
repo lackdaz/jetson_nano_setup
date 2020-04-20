@@ -68,3 +68,54 @@ Also connect your mouse/keyboard wireless transceiver and HDMI display adapter.
 
     Now switch to the Nano display and a GUI should appear. Complete the configuration steps until the wizard is completed. Switch over to the x86 Host Machine once you have set your username and password and key this into the SDK Manager (and ignore the IP address)
 1. The SDK Manager will now proceed to install the additional SDK Components, so just wait until its completed.
+
+Setting Static IP
+--
+
+
+Setting Up SSH Access
+--
+On your local x86 machine:
+- `ssh-copy-id -i ~/.ssh/id_rsa <nano-ip>`
+- Key in your nano's password and the ssh keys will be added to `~/.ssh/known_hosts`
+- Try: `ssh -X username@<nano-ip>` and you should now have passwordless login
+
+On your Nano:
+- You might have to change some sshd settings in `sudo vim /etc/ssh/sshd_config`
+
+Setting up VS Code Remote Development on the Nano
+--
+This is absolutely useful if you wish to run the nano headless and modify on the nano directly
+
+Disable Lock Screen
+--
+- Run `gsettings set org.gnome.desktop.screensaver lock-enabled false
+`
+
+Enable auto-login
+- Even though the auto-login is enabled on the GUI settings. It needs a retoggle to work. Run `sudo vim /etc/gdm3/custom.conf` and make sure the `AutomaticLoginEnable` flag is `True` and uncommented, as follows.
+    ```
+    [daemon]
+    AutomaticLoginEnable=True
+    AutomaticLogin=user
+    ```
+    or if you are lazy:
+
+    ```
+    sudo sed -i '/AutomaticLoginEnable*/s/^#//; s/False/True/' /etc/gdm3/custom.conf && sed -i '/AutomaticLogin=*/s/^#//' /etc/gdm3/custom.conf
+    ```
+
+Create Swap File
+--
+The default nano swapfile is 2GB. You can see this by running: `zramctl`
+
+You will notice that there are four entries (one for each CPU of the Jetson Nano) /dev/zram0 - /dev/zram3. Each entry has an allocated amount of swap memory associated with it, by default 494.6M, for a total of around 2GB. This is half the size of the main memory. You will find this to be adequate for most tasks, but not for dockerised applications. To increase the swapfile size, we are going to use the Jetson Nano convenice script:
+- `git clone https://github.com/JetsonHacksNano/resizeSwapMemory utilities && cd utilities`
+- Then to increase to 8gb: `./setSwapMemorySize.sh -g 8` 
+- Finally, reboot for the changes to take effect: `sudo reboot`
+
+Git
+--
+- `$ git config --global user.name "user"`
+- `$ git config --global user.email "user@gmail.com"`
+- `git config credential.helper store && git push https://github.com/owner/repo.git`
