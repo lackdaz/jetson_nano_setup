@@ -1,7 +1,7 @@
 #!/bin/bash
 
-$DIR = ~/.bash
-$BASHRC = ~/.testrc
+DIR=~/.bash
+BASHRC=~/.testrc
 # Make directory
 if [ ! -f $DIR ]; then
     mkdir ~/.bash

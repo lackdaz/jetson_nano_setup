@@ -95,6 +95,8 @@ Install the community repo key
 
 Run the installation script
 - `. <( wget -O - https://code.headmelted.com/installers/apt.sh )`
+Then reboot or exit the sudo shell
+- `sudo reboot` or `exit`
 
 Disable Lock Screen
 --
@@ -113,6 +115,15 @@ Enable auto-login
     ```
     sudo sed -i '/AutomaticLoginEnable*/s/^#//; s/False/True/' /etc/gdm3/custom.conf && sed -i '/AutomaticLogin=*/s/^#//' /etc/gdm3/custom.conf
     ```
+
+Resize Partitions
+--
+Start an elevated session
+- `sudo -s`
+Run resize script
+- `curl -s https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/resize.sh | sh`
+Then reboot
+- `sudo reboot`
 
 Create Swap File
 --
