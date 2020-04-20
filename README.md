@@ -127,8 +127,19 @@ Git
 --
 - `$ git config --global user.name "user"`
 - `$ git config --global user.email "user@gmail.com"`
-- `git config credential.helper store && git push https://github.com/owner/repo.git`
+- `git config credential.helper store` or `git config --global credential.helper store` (global)
+- `git push` in the github repositories you want your credentials saved
 
-A Better Git log/tree
+Git Submodules
+--
+- Run: `git clone https://github.com/lackdaz/wallaby.git --recursive`
+
+A Better Git log/tree (Optional)
 --
 - check https://gist.github.com/lackdaz/1843c3580612773f4d70b5ab91026d7a
+
+Installing Yarn (Optional)
+--
+Required for node package management
+- Run: curl -s https://gist.githubusercontent.com/lackdaz/15f929aeb0fee44369af1d96635769b8/raw/a23a0c604f1236cb1ae709da9930dc0922b6cdb0/install-node-yarn-arm.sh | bash /dev/stdin param1 param2
+
