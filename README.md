@@ -150,6 +150,10 @@ Upgrading Docker to 19.03
     - `sudo apt-get update`
     - `sudo apt-get install -y python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev`
     - `sudo pip install docker-compose=="1.25.5"` (latest)
+Fix user permissions
+- `sudo groupadd docker`
+- `sudo usermod -aG docker $(whoami)`
+- `sudo service docker start`
+Checking versions
 - To check docker version: `sudo docker version`
 - To check compose version: `sudo docker-compose version`
-
