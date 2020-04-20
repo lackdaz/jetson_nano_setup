@@ -121,7 +121,8 @@ The default nano swapfile is 2GB. You can see this by running: `zramctl`
 You will notice that there are four entries (one for each CPU of the Jetson Nano) /dev/zram0 - /dev/zram3. Each entry has an allocated amount of swap memory associated with it, by default 494.6M, for a total of around 2GB. This is half the size of the main memory. You will find this to be adequate for most tasks, but not for dockerised applications. To increase the swapfile size, we are going to use the Jetson Nano convenice script:
 - `git clone https://github.com/JetsonHacksNano/resizeSwapMemory utilities && cd utilities`
 - Then to increase to 8gb: `./setSwapMemorySize.sh -g 8` 
-- Finally, reboot for the changes to take effect: `sudo reboot`
+- Reboot for the changes to take effect: `sudo reboot`
+- Finally check the new swap file size by running `zramctl` again. You should now see 4x2GB(8GB)
 
 Git
 --
