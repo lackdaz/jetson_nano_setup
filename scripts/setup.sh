@@ -1,54 +1,42 @@
 #!/bin/bash
 
 DIR=~/.bash
-BASHRC=~/testrc
+BASHRC=~/testrc # for jetson nano
 # Make directory
 if [ ! -d $DIR ]; then
     mkdir ~/.bash
     printf "\033[32;1mCreating $DIR\033[0m\n"
 fi
 
-printf "\033[33;1mChecking for .bash_aliases\033[0m\n"
-if [ ! -f ~/.bash_aliases ]; then
-    printf "\033[34;1mNot Found!\033[0m\n"
-    printf "\033[33;1mCreating .bash_aliases\033[0m\n"
-    wget -P ~ https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_aliases
-else
-    printf "\033[34;1mFile exists. Skipping step...\033[0m\n"
-fi
+function_install () {
+# $1 = SRC
+# #2 = DESTINATION
+    local TARGET=$(basename $2) # gets filename
+    local SRC=$2
+    local TARGET_DIR=$1
+    local DEST=$TARGET_DIR/$TARGET
+    local APPEND=https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/$TARGET
+    printf "\033[33;1mChecking for $DEST\033[0m\n"
+    if [ ! -f $DEST ]; then
+        printf "\033[34;1m$DEST not found!\033[0m\n"
+        printf "\033[33;1mCreating $DEST\033[0m\n"
+        wget -P $TARGET_DIR $SRC
+    else
+        printf "\033[34;1m$DEST exists. Skipping step...\033[0m\n"
+    fi
 
-if ! grep ".bash_aliases" $BASHRC >/dev/null 2>/dev/null; then
-    printf "\033[33;1mUpdating $BASHRC...\033[0m\n"
-    echo >> $BASHRC # add newline
-    curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/bash_aliases.sh >> $BASHRC
-    printf "\033[32;1mComplete!\033[0m\n"
-else
-    printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
-fi
+    if ! grep "$DEST" $BASHRC >/dev/null 2>/dev/null; then
+        printf "\033[33;1mUpdating $BASHRC...\033[0m\n"
+        echo >> $BASHRC # add newline
+        curl $APPEND >> $BASHRC
+        printf "\033[32;1mComplete!\033[0m\n"
+    else
+        printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
+    fi
+    printf "\033[32;1m$TARGET Install Complete!\033[0m\n"
+}
 
-# if [ ! -f ~/.bash/.bash_prompt.sh ]; then
-#     printf "\033[33;1mCreating .bash_prompt\033[0m\n"
-#     wget -P .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_prompt.sh
-#     if grep -q ".bash_prompt" $BASHRC; then
-#         printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
-#     else
-#         curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/bash_prompt.sh >> $BASHRC
-#     fi
-#     printf "\033[32;1mComplete!\033[0m\n"
-# fi
+function_install ~ https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_aliases
+function_install .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_prompt.sh
+function_install .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.git-completion.bash
 
-# if [ ! -f ~/.bash/.git-completion.sh ]; then
-#     wget -P .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.git-completion.bash
-#     if grep -q ".git-completion" $BASHRC; then
-#         printf "\033[34;1mAlready exists in $BASHRC. Skipping step...\033[0m\n"
-#     else
-#         curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/git-completion.sh >> $BASHRC
-#     fi
-#     printf "\033[32;1mComplete!\033[0m\n"
-# fi
-
-if [ -f ~/.testrc ]; then
-    curl https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/bashrc-append.sh >> ~/.testrc
-fi
-
-printf "\033[32;1mInstall Complete!\033[0m\n"
