@@ -13,9 +13,11 @@ function_install () {
 # #2 = DESTINATION
     local TARGET=$(basename $2) # gets filename
     local SRC=$2
+    local SCRIPTS_URL=$(dirname $2)
     local TARGET_DIR=$1
     local DEST=$TARGET_DIR/$TARGET
-    local APPEND=https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/$TARGET.sh
+    local APPEND=$SCRIPTS_URL/$TARGET.sh
+
     printf "\033[33;1mChecking for $DEST\033[0m\n"
     if [ ! -f $DEST ]; then
         printf "\033[34;1m$DEST not found!\033[0m\n"
@@ -24,8 +26,8 @@ function_install () {
     else
         printf "\033[34;1m$DEST exists. Skipping step...\033[0m\n"
     fi
-
-    if ! grep "$DEST" $BASHRC >/dev/null 2>/dev/null; then
+    
+    if ! grep "$TARGET" $BASHRC >/dev/null 2>/dev/null; then
         printf "\033[33;1mUpdating $BASHRC...\033[0m\n"
         echo >> $BASHRC # add newline
         curl $APPEND >> $BASHRC
@@ -37,6 +39,6 @@ function_install () {
 }
 
 function_install ~ https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_aliases
-function_install .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_prompt.sh
-function_install .bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.git-completion.bash
+function_install ~/.bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.bash_prompt.sh
+function_install ~/.bash https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/.git-completion.bash
 
