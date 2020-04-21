@@ -1,4 +1,4 @@
 # Get the aliases and functions
-if [ -f ~/.bash/.bash_aliases ]; then
-    . ~/.bash/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi

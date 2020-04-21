@@ -15,7 +15,7 @@ function_install () {
     local SRC=$2
     local TARGET_DIR=$1
     local DEST=$TARGET_DIR/$TARGET
-    local APPEND=https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/$TARGET
+    local APPEND=https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/$TARGET.sh
     printf "\033[33;1mChecking for $DEST\033[0m\n"
     if [ ! -f $DEST ]; then
         printf "\033[34;1m$DEST not found!\033[0m\n"
