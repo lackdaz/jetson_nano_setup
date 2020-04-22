@@ -169,3 +169,12 @@ Fix user permissions
 Checking versions
 - To check docker version: `sudo docker version`
 - To check compose version: `sudo docker-compose version`
+
+Setting HDMI has default audio output (Optional)
+--
+It's always nice to hear a little audio
+- Just add `pactl set-default-sink 0` to `~/.bashrc` or run this convenience script:
+```
+curl -s https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/set_hdmi_audio.sh | sh
+```
+
