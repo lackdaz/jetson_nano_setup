@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR=~/.bash
-BASHRC=~/testrc # for jetson nano
+BASHRC=~/.bashrc # for jetson nano
 # Make directory
 if [ ! -d $DIR ]; then
     mkdir ~/.bash
