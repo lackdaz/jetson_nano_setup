@@ -87,6 +87,7 @@ Setting up VS Code Remote Development on the Nano
 --
 This is absolutely useful if you wish to run the nano headless and modify on the nano directly
 
+
 Start an elevated session
 - `sudo -s`
 
@@ -97,6 +98,7 @@ Run the installation script
 - `. <( wget -O - https://code.headmelted.com/installers/apt.sh )`
 Then reboot or exit the sudo shell
 - `sudo reboot` or `exit`
+
 
 Disable Lock Screen
 --
@@ -116,6 +118,7 @@ Enable auto-login
     sudo sed -i '/AutomaticLoginEnable*/s/^#//; s/False/True/' /etc/gdm3/custom.conf && sed -i '/AutomaticLogin=*/s/^#//' /etc/gdm3/custom.conf
     ```
 
+
 Resize Partitions
 --
 Start an elevated session
@@ -124,6 +127,7 @@ Run resize script
 - `curl -s https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/resize.sh | sh`
 Then reboot
 - `sudo reboot`
+
 
 Create Swap File
 --
@@ -135,12 +139,14 @@ You will notice that there are four entries (one for each CPU of the Jetson Nano
 - Reboot for the changes to take effect: `sudo reboot`
 - Finally check the new swap file size by running `zramctl` again. You should now see 4x2GB(8GB)
 
+
 Git
 --
 - `$ git config --global user.name "user"`
 - `$ git config --global user.email "user@gmail.com"`
 - `git config credential.helper store` or `git config --global credential.helper store` (global)
 - `git push` in the github repositories you want your credentials saved
+
 
 Git Submodules
 --
@@ -150,10 +156,12 @@ A Better Git log/tree (Optional)
 --
 - check https://gist.github.com/lackdaz/1843c3580612773f4d70b5ab91026d7a
 
+
 Installing Yarn (Optional)
 --
 Required for node package management
 - Run: curl -s https://gist.githubusercontent.com/lackdaz/15f929aeb0fee44369af1d96635769b8/raw/a23a0c604f1236cb1ae709da9930dc0922b6cdb0/install-node-yarn-arm.sh | bash /dev/stdin param1 param2
+
 
 Upgrading Docker to 19.03
 --
@@ -170,6 +178,7 @@ Checking versions
 - To check docker version: `sudo docker version`
 - To check compose version: `sudo docker-compose version`
 
+
 Setting HDMI has default audio output (Optional)
 --
 It's always nice to hear a little audio
@@ -178,3 +187,31 @@ It's always nice to hear a little audio
 curl -s https://raw.githubusercontent.com/lackdaz/jetson_nano_setup/master/scripts/set_hdmi_audio.sh | sh
 ```
 
+
+Disable Monitor Sleep
+--
+- Run: `gsettings set org.gnome.desktop.session idle-delay 0`
+
+
+Install exFAT
+--
+Silly proprietary Microsoft software
+- Run: `sudo apt-get install -y exfat-fuse exfat-utils`
+
+
+JTOP
+--
+Resource Diagnostics Tools
+- Install: `sudo -H pip install -U jetson-stats`
+- Run: `sudo jtop`
+
+
+Playing Videos
+--
+GNOME Videos seems to be one of the few plug-and-play options that work on the arm64:
+- Install: `sudo apt-get install totem libtotem0`
+- Run: `totem <path-to-video>`
+Alternatively, you can use the native plug-and-play gstreamer player:
+- Run `gst-play-1.0 file:///home/seth/<path-to-video>`
+or, for more advanced video/audio pipeline building:
+- Run: `gst-launch-1.0 uridecodebin uri=file:///home/seth/<path-to-video> ! nvoverlaysink`
