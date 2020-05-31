@@ -204,6 +204,7 @@ JTOP
 Resource Diagnostics Tools
 - Install: `sudo -H pip install -U jetson-stats`
 - Run: `sudo jtop`
+- Run: `sudo systemctl enable jetson_performance.service`
 
 
 Playing Videos
@@ -215,3 +216,41 @@ Alternatively, you can use the native plug-and-play gstreamer player:
 - Run `gst-play-1.0 file:///home/seth/<path-to-video>`
 or, for more advanced video/audio pipeline building:
 - Run: `gst-launch-1.0 uridecodebin uri=file:///home/seth/<path-to-video> ! nvoverlaysink`
+or run a movie at 10x without subtitles
+- Run: `gst-launch-1.0 filesrc location=~/Videos/Westworld.S03E07.Passed.Pawn.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.mkv ! queue ! decodebin3 name=d d.video_0 ! nvvidconv interpolation-method=3 flip-method=0 ! 'video/x-raw(memory:NVMM), format=(string)I420' ! videoconvert ! videorate rate=10.0 ! nvoverlaysink d. ! queue ! audioconvert ! speed speed=10.0 ! alsasink -e`
+Utils
+- If using webcam, you'll need: `sudo apt install v4l-utils` and then run: `v4l2-ctl -d /dev/video1`
+
+
+Rysnc
+--
+- Run: `rsync -azP -e 'ssh -p 3091' --delete ~/Videos seth@158.140.136.216:~`
+
+
+Locate
+--
+Search filename on your terminal, e.g. `locate deepstream | grep samples`
+- Run: `sudo apt-get install -y libopenblas-base mlocate && sudo updatedb` (it takes some time to update the database)
+
+
+Passwordless Shutdown/Reboot
+--
+- Elevate user session as root: `sudo su`
+- Run: `echo "<user> ALL=NOPASSWD: /sbin/shutdown" >> /etc/sudoers.d/nano_shutdown`, where <user> is defined, e.g. `foo ALL=NOPASSWD: /sbin/shutdown`
+- Test it out: `sudo reboot now`
+
+
+Git-LFS
+--
+- Run: `sudo apt-get install git-lfs`
+
+
+Disable System Error Reporting
+--
+- Run `sudo vim /etc/default/apport`
+
+
+Install htop
+--
+A more verbose top
+- Run `sudo apt-get install htop` and run `htop`
